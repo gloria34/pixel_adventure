@@ -6,7 +6,8 @@ class Level extends World {
 
   @override
   Future<void> onLoad() async {
-    level = await TiledComponent.load('Level-1.tmx', Vector2.all(16));
+    level = await TiledComponent.load('Level-01.tmx', Vector2.all(16));
+    add(level);
     return super.onLoad();
   }
 }
