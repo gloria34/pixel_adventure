@@ -4,7 +4,8 @@ import 'package:pixel_adventure/actors/palyer.dart';
 
 class Level extends World {
   final String levelName;
-  Level({required this.levelName});
+  final Player player;
+  Level({required this.levelName, required this.player});
   late TiledComponent level;
 
   @override
@@ -12,10 +13,11 @@ class Level extends World {
     level = await TiledComponent.load('$levelName.tmx', Vector2.all(16));
     add(level);
     final spawnPointsLayer = level.tileMap.getLayer<ObjectGroup>('Spawnpoints');
-    for(final spawnPoint in spawnPointsLayer!.objects) {
-      switch(spawnPoint.class_) {
+    for (final spawnPoint in spawnPointsLayer!.objects) {
+      switch (spawnPoint.class_) {
         case 'Player':
-          add(Player(character: 'Ninja Frog', position: Vector2(spawnPoint.x, spawnPoint.y)));
+          player.position = Vector2(spawnPoint.x, spawnPoint.y);
+          add(player);
           break;
         default:
       }
